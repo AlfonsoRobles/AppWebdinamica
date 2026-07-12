@@ -1,15 +1,6 @@
 <?php
 header('Content-Type: application/json');
 
-// Depuración: mostrar todas las variables MySQL
-echo "MYSQLHOST: " . var_export(getenv("MYSQLHOST"), true) . "\n";
-echo "MYSQLPORT: " . var_export(getenv("MYSQLPORT"), true) . "\n";
-echo "MYSQLUSER: " . var_export(getenv("MYSQLUSER"), true) . "\n";
-echo "MYSQLPASSWORD: " . var_export(getenv("MYSQLPASSWORD"), true) . "\n";
-echo "MYSQLDATABASE: " . var_export(getenv("MYSQLDATABASE"), true) . "\n";
-echo "MYSQL_URL: " . var_export(getenv("MYSQL_URL"), true) . "\n";
-exit;
-
 // Conexión a MySQL usando variables de entorno de Railway
 $conexion = new mysqli(
     getenv("MYSQLHOST"),
