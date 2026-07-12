@@ -1,0 +1,108 @@
+/* ====== Estilos generales ====== */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f8f9fa;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* ====== Formularios ====== */
+#loginForm, #taskForm {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#loginForm input, #taskForm input {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-login, .btn-save {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-login:hover, .btn-save:hover {
+  background-color: #0056b3;
+}
+
+/* ====== Tabla ====== */
+#tasksTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#tasksTable th, #tasksTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#tasksTable th {
+  background-color: #343a40;
+  color: white;
+}
+
+/* ====== Botones de acciones ====== */
+.btn-edit {
+  background-color: #ffc107;
+  border: none;
+  padding: 5px 10px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  border: none;
+  padding: 5px 10px;
+  margin: 2px;
+  cursor: pointer;
+  color: white;
+  border-radius: 4px;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* ====== Estados especiales ====== */
+
+/* Tareas completadas: verde suave */
+.completed-row {
+  background-color: #d4edda !important;
+}
+
+/* Tareas próximas a vencer: amarillo intermitente */
+.warning-row {
+  animation: blinkYellow 1s infinite;
+}
+
+@keyframes blinkYellow {
+  0%   { background-color: #fff3cd; }
+  50%  { background-color: #ffeeba; }
+  100% { background-color: #fff3cd; }
+}
+
+/* ====== Hover sobre filas ====== */
+/* Al pasar el cursor sobre cualquier tarea, se resalta en gris claro */
+#tasksTable tbody tr:hover {
+  background-color: #e2e6ea !important;
+  transition: background-color 0.3s ease;
+}
