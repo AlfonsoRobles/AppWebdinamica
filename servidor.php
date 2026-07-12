@@ -1,13 +1,13 @@
 <?php
 header('Content-Type: application/json');
 
-// Conexión a MySQL usando variables de entorno (Railway)
+// Conexión a MySQL usando variables de entorno de Railway
 $conexion = new mysqli(
-    getenv("DB_HOST"),
-    getenv("DB_USER"),
-    getenv("DB_PASS"),
-    getenv("DB_NAME"),
-    getenv("DB_PORT")
+    getenv("MYSQLHOST"),
+    getenv("MYSQLUSER"),
+    getenv("MYSQLPASSWORD"),
+    getenv("MYSQLDATABASE"),
+    getenv("MYSQLPORT")
 );
 
 if ($conexion->connect_error) {
