@@ -1,6 +1,10 @@
 <?php
 header('Content-Type: application/json');
 
+// Depuración: mostrar qué valor tiene MYSQLDATABASE
+var_dump(getenv("MYSQLDATABASE"));
+exit;
+
 // Conexión a MySQL usando variables de entorno de Railway
 $conexion = new mysqli(
     getenv("MYSQLHOST"),
