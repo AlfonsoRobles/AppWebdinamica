@@ -1,10 +1,13 @@
 <?php
-// Conexión a MySQL en Railway usando variables de entorno
-$host = getenv("MYSQLHOST");       // Host público (ej. tokaido.proxy.rlwy.net)
-$port = getenv("MYSQLPORT");       // Puerto asignado (ej. 3306 o dinámico como 51112)
-$user = getenv("MYSQLUSER");       // Usuario (ej. root o generado por Railway)
-$pass = getenv("MYSQLPASSWORD");   // Contraseña
-$db   = getenv("MYSQLDATABASE");   // Nombre de la base (ej. railway)
+// Conexión a MySQL en Railway usando MYSQL_URL
+$url = getenv("MYSQL_URL");
+$parts = parse_url($url);
+
+$host = $parts['host'];
+$port = $parts['port'];
+$user = $parts['user'];
+$pass = $parts['pass'];
+$db   = ltrim($parts['path'], '/');
 
 // Crear conexión
 $conexion = new mysqli($host, $user, $pass, $db, $port);
@@ -16,7 +19,4 @@ if ($conexion->connect_error) {
 
 // Configurar charset para evitar problemas con acentos/ñ
 $conexion->set_charset("utf8");
-
-// Mensaje opcional para confirmar
-// echo "Conexión exitosa a la base de datos";
 ?>
