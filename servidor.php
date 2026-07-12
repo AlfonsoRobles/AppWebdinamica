@@ -1,19 +1,6 @@
 <?php
 header('Content-Type: application/json');
-
-// Conexión a MySQL usando variables de entorno de Railway
-$conexion = new mysqli(
-    getenv("MYSQLHOST"),
-    getenv("MYSQLUSER"),
-    getenv("MYSQLPASSWORD"),
-    getenv("MYSQLDATABASE"),
-    getenv("MYSQLPORT")
-);
-
-if ($conexion->connect_error) {
-    echo json_encode(["success" => false, "error" => $conexion->connect_error]);
-    exit;
-}
+require_once 'conexion.php';
 
 $accion = $_GET['accion'] ?? 'listar';
 
