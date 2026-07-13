@@ -8,6 +8,7 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli \
 # 👇 Deshabilitar todos los MPM conflictivos y dejar solo prefork
 RUN a2dismod mpm_event || true
 RUN a2dismod mpm_worker || true
+RUN a2dismod mpm_prefork || true
 RUN a2enmod mpm_prefork
 
 # Copiar tu aplicación al contenedor
