@@ -1,4 +1,3 @@
-/* ====== Estilos generales ====== */
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
@@ -10,7 +9,6 @@ h1 {
   color: #333;
 }
 
-/* ====== Formularios ====== */
 #loginForm, #taskForm {
   text-align: center;
   margin-bottom: 20px;
@@ -36,7 +34,6 @@ h1 {
   background-color: #0056b3;
 }
 
-/* ====== Tabla ====== */
 #tasksTable {
   width: 100%;
   border-collapse: collapse;
@@ -54,87 +51,10 @@ h1 {
   color: white;
 }
 
-/* ====== Botones de acciones ====== */
-.btn-edit {
-  background-color: #ffc107;
-  border: none;
-  padding: 5px 10px;
-  margin: 2px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.btn-edit:hover {
-  background-color: #e0a800;
-}
-
-.btn-delete {
-  background-color: #dc3545;
-  border: none;
-  padding: 5px 10px;
-  margin: 2px;
-  cursor: pointer;
-  color: white;
-  border-radius: 4px;
-}
-
-.btn-delete:hover {
-  background-color: #c82333;
-}
-
-/* ====== Estados especiales ====== */
 .completed-row {
-  background-color: #d4edda !important; /* verde suave */
+  background-color: #d4edda !important;
 }
 
 .warning-row {
-  animation: blinkYellow 1s infinite;
+  background-color: #fff3cd !important;
 }
-
-@keyframes blinkYellow {
-  0%   { background-color: #fff3cd; }
-  50%  { background-color: #ffeeba; }
-  100% { background-color: #fff3cd; }
-}
-
-/* ====== Hover sobre filas ====== */
-
-/* Base: transición en todas las filas */
-table#tasksTable.dataTable tbody tr {
-  transition: background-color 0.3s ease;
-}
-
-/* Hover general */
-table#tasksTable.dataTable tbody tr:hover {
-  background-color: #e2e6ea !important; /* gris claro */
-  cursor: pointer;
-}
-
-/* Hover para tareas completadas */
-table#tasksTable.dataTable tbody tr.completed-row:hover {
-  background-color: #c3e6cb !important; /* verde más intenso */
-}
-
-/* Hover para tareas próximas a vencer */
-table#tasksTable.dataTable tbody tr.warning-row:hover {
-  background-color: #ffe8a1 !important; /* amarillo más fuerte */
-}
-
-@media (max-width: 768px) {
-  #tasksTable th, #tasksTable td {
-    font-size: 12px;
-    padding: 5px;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-
-  .btn {
-    padding: 6px 10px;
-    font-size: 12px;
-  }
-}
-
-
-
