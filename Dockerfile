@@ -5,7 +5,7 @@ FROM php:8.2-apache
 RUN docker-php-ext-install pdo pdo_mysql mysqli \
     && docker-php-ext-enable pdo_mysql mysqli
 
-# 👇 Deshabilitar todos los MPM y activar solo prefork
+# 👇 Deshabilitar MPMs conflictivos y activar solo prefork
 RUN a2dismod mpm_event mpm_worker || true
 RUN a2enmod mpm_prefork
 
