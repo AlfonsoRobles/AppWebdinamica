@@ -101,8 +101,23 @@ h1 {
 }
 
 /* ====== Hover sobre filas ====== */
-/* Al pasar el cursor sobre cualquier tarea, se resalta en gris claro */
-#tasksTable tbody tr:hover {
-  background-color: #e2e6ea !important;
+
+/* Hover general para cualquier fila */
+#tasksTable tbody tr {
   transition: background-color 0.3s ease;
+}
+
+#tasksTable tbody tr:hover {
+  background-color: #e2e6ea !important; /* gris claro */
+  cursor: pointer;
+}
+
+/* Hover para tareas completadas */
+.completed-row:hover {
+  background-color: #c3e6cb !important; /* verde más intenso */
+}
+
+/* Hover para tareas próximas a vencer */
+.warning-row:hover {
+  background-color: #ffe8a1 !important; /* amarillo más fuerte */
 }
