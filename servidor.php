@@ -10,7 +10,8 @@ switch ($accion) {
         try {
             $stmt = $conn->query("SELECT * FROM tareas");
             $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode($tareas);
+            // 👇 DataTables necesita la clave "data"
+            echo json_encode(["data" => $tareas]);
         } catch (PDOException $e) {
             echo json_encode(["error" => $e->getMessage()]);
         }
