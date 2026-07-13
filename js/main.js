@@ -1,6 +1,8 @@
 $(document).ready(function() {
+  // Inicializar DataTable
   let table = $('#tasksTable').DataTable();
 
+  // Activar calendarios en los campos de fecha
   $("#taskInicio, #taskEntrega").datepicker({
     dateFormat: "yy-mm-dd",
     minDate: 0,
@@ -9,6 +11,7 @@ $(document).ready(function() {
     changeYear: true
   });
 
+  // Login básico (usuario: admin / contraseña: admin123)
   $('#loginForm').on('submit', function(e) {
     e.preventDefault();
     let user = $('#username').val();
@@ -23,6 +26,7 @@ $(document).ready(function() {
     }
   });
 
+  // Función para cargar tareas desde servidor.php
   function cargarTareas() {
     $.ajax({
       url: 'servidor.php?action=list',
@@ -42,13 +46,14 @@ $(document).ready(function() {
               task.title,
               task.tipo || "",
               task.valor || "",
-              task.duration || "",
+              task.duracion || "",   // 👈 usa duracion
               task.date_start || "",
               task.date_end || "",
               acciones,
               estadoTexto
             ]).draw().node();
 
+            // Estilos dinámicos según estado
             if (task.completed == 1) {
               $(rowNode).addClass("completed-row");
             } else {
@@ -73,7 +78,7 @@ $(document).ready(function() {
       title: $('#taskTitle').val(),
       tipo: $('#taskTipo').val(),
       valor: $('#taskValor').val(),
-      duration: $('#taskDuracion').val(),   // 👈 corregido: duration
+      duracion: $('#taskDuracion').val(),   // 👈 usa duracion
       date_start: $('#taskInicio').val(),
       date_end: $('#taskEntrega').val()
     };
