@@ -58,3 +58,38 @@ h1 {
 .warning-row {
   background-color: #fff3cd !important;
 }
+/* Botón Editar */
+.editBtn, .btn-edit {
+  background-color: #ffc107; /* amarillo */
+  color: #212529;
+  border: none;
+  padding: 6px 12px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.editBtn:hover, .btn-edit:hover {
+  background-color: #e0a800; /* amarillo más oscuro */
+  transform: scale(1.05);
+}
+
+/* Botón Eliminar */
+.deleteBtn, .btn-delete {
+  background-color: #dc3545; /* rojo */
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.deleteBtn:hover, .btn-delete:hover {
+  background-color: #c82333; /* rojo más oscuro */
+  transform: scale(1.05);
+}
