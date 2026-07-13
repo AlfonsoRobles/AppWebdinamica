@@ -1,15 +1,19 @@
 <?php
-$host = getenv("MYSQLHOST");
-$user = getenv("MYSQLUSER");
-$pass = getenv("MYSQLPASSWORD");
-$db   = getenv("MYSQLDATABASE");
-$port = getenv("MYSQLPORT");
+// Leer variables de entorno definidas en Railway
+$host     = getenv("MYSQLHOST");
+$user     = getenv("MYSQLUSER");
+$password = getenv("MYSQLPASSWORD");
+$dbname   = getenv("MYSQLDATABASE");
+$port     = getenv("MYSQLPORT");
 
-try {
-    $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=utf8";
-    $conn = new PDO($dsn, $user, $pass);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Error de conexión: " . $e->getMessage());
+// Crear conexión con MySQL
+$conn = new mysqli($host, $user, $password, $dbname, $port);
+
+// Verificar si hubo error
+if ($conn->connect_error) {
+    die("Error de conexión a la base de datos: " . $conn->connect_error);
 }
+
+// Opcional: establecer charset para evitar problemas con acentos
+$conn->set_charset("utf8");
 ?>
