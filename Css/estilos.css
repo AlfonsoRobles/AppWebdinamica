@@ -102,11 +102,12 @@ h1 {
 
 /* ====== Hover sobre filas ====== */
 
-/* Hover general para cualquier fila */
+/* Base: transición en todas las filas */
 #tasksTable tbody tr {
   transition: background-color 0.3s ease;
 }
 
+/* Hover general */
 #tasksTable tbody tr:hover {
   background-color: #e2e6ea !important; /* gris claro */
   cursor: pointer;
