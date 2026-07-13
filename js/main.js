@@ -42,22 +42,21 @@ $(document).ready(function() {
               task.title,
               task.tipo || "",
               task.valor || "",
-              task.duracion || "",   // 👈 usa duracion
+              task.duracion || "",
               task.date_start || "",
               task.date_end || "",
               acciones,
               estadoTexto
             ]).draw().node();
 
-            // ✅ Colorear según estado
             if (task.completed == 1) {
-              $(rowNode).addClass("completed-row"); // verde
+              $(rowNode).addClass("completed-row");
             } else {
               let hoy = new Date();
               let entrega = new Date(task.date_end);
               let diff = (entrega - hoy) / (1000 * 60 * 60 * 24);
               if (diff <= 2 && diff >= 0) {
-                $(rowNode).addClass("warning-row"); // amarillo intermitente
+                $(rowNode).addClass("warning-row");
                 alert(`⚠️ La tarea "${task.title}" vence pronto (fecha límite: ${task.date_end}).`);
               }
             }
@@ -74,7 +73,7 @@ $(document).ready(function() {
       title: $('#taskTitle').val(),
       tipo: $('#taskTipo').val(),
       valor: $('#taskValor').val(),
-      duracion: $('#taskDuracion').val(),   // 👈 usa duracion
+      duracion: $('#taskDuracion').val(),
       date_start: $('#taskInicio').val(),
       date_end: $('#taskEntrega').val()
     };
@@ -112,21 +111,37 @@ $(document).ready(function() {
     });
   });
 
-  // Editar tarea
+  // Editar tarea (corregido)
   $('#tasksTable').on('click', '.editBtn', function() {
     let row = table.row($(this).parents('tr'));
     let data = row.data();
-    let nuevoTitulo = prompt("Editar título:", data[1]);
-    let nuevaFecha = prompt("Editar fecha de entrega (YYYY-MM-DD):", data[6]);
-    if (nuevoTitulo && nuevaFecha) {
+
+    let nuevoTitulo   = prompt("Editar título:", data[1]);
+    let nuevoTipo     = prompt("Editar tipo:", data[2]);
+    let nuevoValor    = prompt("Editar valor:", data[3]);
+    let nuevaDuracion = prompt("Editar duración:", data[4]);
+    let nuevaFechaIni = prompt("Editar fecha inicio (YYYY-MM-DD):", data[5]);
+    let nuevaFechaFin = prompt("Editar fecha entrega (YYYY-MM-DD):", data[6]);
+
+    if (nuevoTitulo && nuevaFechaFin) {
       $.ajax({
         url: 'servidor.php?action=edit',
         method: 'POST',
-        data: { id: data[0], title: nuevoTitulo, date_end: nuevaFecha },
+        data: { 
+          id: data[0], 
+          title: nuevoTitulo, 
+          tipo: nuevoTipo, 
+          valor: nuevoValor, 
+          duracion: nuevaDuracion, 
+          date_start: nuevaFechaIni, 
+          date_end: nuevaFechaFin 
+        },
         success: function(respuesta) {
           if (respuesta.success) {
             cargarTareas();
             alert("✏️ Tarea actualizada.");
+          } else {
+            alert("❌ Error al actualizar tarea.");
           }
         }
       });
@@ -143,7 +158,7 @@ $(document).ready(function() {
       data: { id, completed },
       success: function(respuesta) {
         if (respuesta.success) {
-          cargarTareas(); // ✅ recarga y aplica la clase .completed-row
+          cargarTareas();
           alert("🔄 Estado de la tarea actualizado.");
         }
       }
