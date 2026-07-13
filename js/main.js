@@ -1,8 +1,6 @@
 $(document).ready(function() {
-  // Inicializar DataTable
   let table = $('#tasksTable').DataTable();
 
-  // Activar calendarios en los campos de fecha
   $("#taskInicio, #taskEntrega").datepicker({
     dateFormat: "yy-mm-dd",
     minDate: 0,
@@ -11,7 +9,6 @@ $(document).ready(function() {
     changeYear: true
   });
 
-  // Login básico (usuario: admin / contraseña: admin123)
   $('#loginForm').on('submit', function(e) {
     e.preventDefault();
     let user = $('#username').val();
@@ -26,7 +23,6 @@ $(document).ready(function() {
     }
   });
 
-  // Función para cargar tareas desde servidor.php
   function cargarTareas() {
     $.ajax({
       url: 'servidor.php?action=list',
@@ -53,7 +49,6 @@ $(document).ready(function() {
               estadoTexto
             ]).draw().node();
 
-            // Estilos dinámicos según estado
             if (task.completed == 1) {
               $(rowNode).addClass("completed-row");
             } else {
