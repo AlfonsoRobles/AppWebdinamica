@@ -1,22 +1,15 @@
 <?php
-// Conexión a MySQL en Railway usando MYSQL_URL
-$url = getenv("MYSQL_URL");
-$parts = parse_url($url);
+$host = getenv("MYSQLHOST");
+$user = getenv("MYSQLUSER");
+$pass = getenv("MYSQLPASSWORD");
+$db   = getenv("MYSQLDATABASE");
+$port = getenv("MYSQLPORT");
 
-$host = $parts['host'];
-$port = $parts['port'];
-$user = $parts['user'];
-$pass = $parts['pass'];
-$db   = ltrim($parts['path'], '/');
-
-// Crear conexión
-$conexion = new mysqli($host, $user, $pass, $db, $port);
-
-// Verificar conexión
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
+try {
+    $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=utf8";
+    $conn = new PDO($dsn, $user, $pass);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Error de conexión: " . $e->getMessage());
 }
-
-// Configurar charset para evitar problemas con acentos/ñ
-$conexion->set_charset("utf8");
 ?>
