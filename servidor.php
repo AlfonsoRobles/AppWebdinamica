@@ -1,63 +1,80 @@
 <?php
+require_once __DIR__ . '/conexion.php';
+
 header('Content-Type: application/json');
-require_once 'conexion.php';
 
-$accion = $_GET['accion'] ?? 'listar';
+$accion = isset($_GET['accion']) ? $_GET['accion'] : '';
 
-// Listar tareas
-if ($accion === 'listar') {
-    $resultado = $conexion->query("SELECT * FROM tareas ORDER BY date_start ASC");
-    $tareas = [];
-    while ($fila = $resultado->fetch_assoc()) {
-        $tareas[] = $fila;
-    }
-    echo json_encode(["success" => true, "data" => $tareas]);
-    exit;
+switch ($accion) {
+    case 'listar':
+        try {
+            $stmt = $conn->query("SELECT * FROM tareas");
+            $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($tareas);
+        } catch (PDOException $e) {
+            echo json_encode(["error" => $e->getMessage()]);
+        }
+        break;
+
+    case 'agregar':
+        $titulo = $_POST['titulo'] ?? '';
+        $tipo = $_POST['tipo'] ?? '';
+        $valor = $_POST['valor'] ?? '';
+        $duracion = $_POST['duracion'] ?? '';
+        $date_start = $_POST['date_start'] ?? '';
+        $date_end = $_POST['date_end'] ?? '';
+        try {
+            $stmt = $conn->prepare("INSERT INTO tareas (titulo, tipo, valor, duracion, date_start, date_end, completed) 
+                                    VALUES (?, ?, ?, ?, ?, ?, 0)");
+            $stmt->execute([$titulo, $tipo, $valor, $duracion, $date_start, $date_end]);
+            echo json_encode(["success" => true]);
+        } catch (PDOException $e) {
+            echo json_encode(["error" => $e->getMessage()]);
+        }
+        break;
+
+    case 'editar':
+        $id = $_POST['id'] ?? 0;
+        $titulo = $_POST['titulo'] ?? '';
+        $tipo = $_POST['tipo'] ?? '';
+        $valor = $_POST['valor'] ?? '';
+        $duracion = $_POST['duracion'] ?? '';
+        $date_start = $_POST['date_start'] ?? '';
+        $date_end = $_POST['date_end'] ?? '';
+        try {
+            $stmt = $conn->prepare("UPDATE tareas SET titulo=?, tipo=?, valor=?, duracion=?, date_start=?, date_end=? WHERE id=?");
+            $stmt->execute([$titulo, $tipo, $valor, $duracion, $date_start, $date_end, $id]);
+            echo json_encode(["success" => true]);
+        } catch (PDOException $e) {
+            echo json_encode(["error" => $e->getMessage()]);
+        }
+        break;
+
+    case 'cambiarEstado':
+        $id = $_POST['id'] ?? 0;
+        $completed = $_POST['completed'] ?? 0;
+        try {
+            $stmt = $conn->prepare("UPDATE tareas SET completed=? WHERE id=?");
+            $stmt->execute([$completed, $id]);
+            echo json_encode(["success" => true]);
+        } catch (PDOException $e) {
+            echo json_encode(["error" => $e->getMessage()]);
+        }
+        break;
+
+    case 'eliminar':
+        $id = $_POST['id'] ?? 0;
+        try {
+            $stmt = $conn->prepare("DELETE FROM tareas WHERE id=?");
+            $stmt->execute([$id]);
+            echo json_encode(["success" => true]);
+        } catch (PDOException $e) {
+            echo json_encode(["error" => $e->getMessage()]);
+        }
+        break;
+
+    default:
+        echo json_encode(["error" => "Acción no válida"]);
+        break;
 }
-
-// Agregar tarea
-if ($accion === 'agregar') {
-    $json = json_decode(file_get_contents("php://input"), true);
-    $titulo   = $conexion->real_escape_string($json['title'] ?? '');
-    $tipo     = $conexion->real_escape_string($json['tipo'] ?? '');
-    $valor    = intval($json['valor'] ?? 0);
-    $duracion = intval($json['duracion'] ?? 0);
-    $inicio   = $conexion->real_escape_string($json['date_start'] ?? null);
-    $entrega  = $conexion->real_escape_string($json['date_end'] ?? null);
-
-    $conexion->query("INSERT INTO tareas (title, tipo, valor, duracion, date_start, date_end, completed) 
-                      VALUES ('$titulo', '$tipo', $valor, $duracion, '$inicio', '$entrega', 0)");
-    echo json_encode(["success" => true]);
-    exit;
-}
-
-// Editar tarea
-if ($accion === 'editar') {
-    $json = json_decode(file_get_contents("php://input"), true);
-    $id       = intval($json['id']);
-    $titulo   = $conexion->real_escape_string($json['title'] ?? '');
-    $entrega  = $conexion->real_escape_string($json['date_end'] ?? null);
-
-    $conexion->query("UPDATE tareas SET title='$titulo', date_end='$entrega' WHERE id=$id");
-    echo json_encode(["success" => true]);
-    exit;
-}
-
-// Cambiar estado
-if ($accion === 'estado') {
-    $json = json_decode(file_get_contents("php://input"), true);
-    $id = intval($json['id']);
-    $completed = $json['completed'] ? 1 : 0;
-    $conexion->query("UPDATE tareas SET completed=$completed WHERE id=$id");
-    echo json_encode(["success" => true]);
-    exit;
-}
-
-// Eliminar tarea
-if ($accion === 'eliminar') {
-    $json = json_decode(file_get_contents("php://input"), true);
-    $id = intval($json['id']);
-    $conexion->query("DELETE FROM tareas WHERE id=$id");
-    echo json_encode(["success" => true]);
-    exit;
-}
+?>
