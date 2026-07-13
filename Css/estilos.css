@@ -122,3 +122,19 @@ h1 {
 .warning-row:hover {
   background-color: #ffe8a1 !important; /* amarillo más fuerte */
 }
+/* Hover general para cualquier fila */
+#tasksTable.dataTable tbody tr:hover {
+  background-color: #e2e6ea !important; /* gris claro */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover para tareas completadas */
+#tasksTable.dataTable tbody tr.completed-row:hover {
+  background-color: #c3e6cb !important; /* verde más intenso */
+}
+
+/* Hover para tareas próximas a vencer */
+#tasksTable.dataTable tbody tr.warning-row:hover {
+  background-color: #ffe8a1 !important; /* amarillo más fuerte */
+}
