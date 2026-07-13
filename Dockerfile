@@ -1,4 +1,3 @@
-# Imagen base oficial de PHP CLI
 FROM php:8.2-cli
 
 # Instalar extensiones necesarias para MySQL
@@ -12,5 +11,5 @@ WORKDIR /var/www/html
 # Exponer el puerto 80
 EXPOSE 80
 
-# Iniciar servidor embebido de PHP
+# 👇 Servidor embebido de PHP en el puerto 80
 CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html"]
