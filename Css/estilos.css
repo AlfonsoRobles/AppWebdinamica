@@ -34,6 +34,42 @@ h1 {
   background-color: #0056b3;
 }
 
+/* Botón Editar */
+.editBtn {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  padding: 6px 12px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.editBtn:hover {
+  background-color: #e0a800;
+  transform: scale(1.05);
+}
+
+/* Botón Eliminar */
+.deleteBtn {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.deleteBtn:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
 #tasksTable {
   width: 100%;
   border-collapse: collapse;
@@ -58,38 +94,36 @@ h1 {
 .warning-row {
   background-color: #fff3cd !important;
 }
-/* Botón Editar */
-.editBtn, .btn-edit {
-  background-color: #ffc107; /* amarillo */
-  color: #212529;
-  border: none;
-  padding: 6px 12px;
-  margin: 2px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
 
-.editBtn:hover, .btn-edit:hover {
-  background-color: #e0a800; /* amarillo más oscuro */
-  transform: scale(1.05);
-}
+/* ✅ Responsividad con media queries */
+@media (max-width: 768px) {
+  body {
+    margin: 10px;
+  }
 
-/* Botón Eliminar */
-.deleteBtn, .btn-delete {
-  background-color: #dc3545; /* rojo */
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  margin: 2px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+  h1 {
+    font-size: 20px;
+  }
 
-.deleteBtn:hover, .btn-delete:hover {
-  background-color: #c82333; /* rojo más oscuro */
-  transform: scale(1.05);
+  #loginForm input, #taskForm input {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .btn-login, .btn-save, .editBtn, .deleteBtn {
+    width: 100%;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+  #tasksTable th, #tasksTable td {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  #tasksTable {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
