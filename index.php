@@ -21,7 +21,7 @@
   <script src="js/main.js"></script>
 </head>
 <body>
-  <h1>Gestor de Tareas</h1>
+  <h1>Gestor de Tareas LDSW UDG</h1>
 
   <!-- Login -->
   <form id="loginForm">
