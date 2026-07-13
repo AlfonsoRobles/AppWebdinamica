@@ -8,8 +8,8 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli \
 COPY . /var/www/html/
 WORKDIR /var/www/html
 
-# Exponer el puerto 80
-EXPOSE 80
+# Exponer el puerto dinámico
+EXPOSE 8080
 
-# 👇 Servidor embebido de PHP en el puerto 80
-CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html"]
+# 👇 Usar la variable $PORT que Railway asigna
+CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-8080} -t /var/www/html"]
