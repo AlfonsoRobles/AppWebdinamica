@@ -16,7 +16,7 @@
 </head>
 <body class="bg-light">
   <div class="container mt-4">
-    <h1 class="text-center mb-4">📋 Gestor de Tareas</h1>
+    <h1 class="text-center mb-4">📋 Gestor de Tareas LDSW UDG</h1>
 
     <!-- Login -->
     <form id="loginForm" class="card p-3 shadow-sm mb-4">
