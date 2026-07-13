@@ -29,10 +29,10 @@ $(document).ready(function() {
   // Función para cargar tareas desde servidor.php
   function cargarTareas() {
     $.ajax({
-      url: 'servidor.php?accion=listar',
+      url: 'servidor.php?action=list',
       method: 'GET',
       success: function(respuesta) {
-        if (respuesta.success) {
+        if (respuesta.data) {
           table.clear();
           respuesta.data.forEach(task => {
             let estadoTexto = task.completed == 1 ? "Completada" : "Pendiente";
@@ -46,7 +46,7 @@ $(document).ready(function() {
               task.title,
               task.tipo || "",
               task.valor || "",
-              task.duracion || "",
+              task.duration || "",
               task.date_start || "",
               task.date_end || "",
               acciones,
@@ -62,7 +62,6 @@ $(document).ready(function() {
               let diff = (entrega - hoy) / (1000 * 60 * 60 * 24);
               if (diff <= 2 && diff >= 0) {
                 $(rowNode).addClass("warning-row");
-                // Mostrar alerta en pantalla si está próxima a vencer
                 alert(`⚠️ La tarea "${task.title}" vence pronto (fecha límite: ${task.date_end}).`);
               }
             }
@@ -79,16 +78,15 @@ $(document).ready(function() {
       title: $('#taskTitle').val(),
       tipo: $('#taskTipo').val(),
       valor: $('#taskValor').val(),
-      duracion: $('#taskDuracion').val(),
+      duration: $('#taskDuracion').val(),
       date_start: $('#taskInicio').val(),
       date_end: $('#taskEntrega').val()
     };
 
     $.ajax({
-      url: 'servidor.php?accion=agregar',
+      url: 'servidor.php?action=add',
       method: 'POST',
-      data: JSON.stringify(nuevaTarea),
-      contentType: 'application/json',
+      data: nuevaTarea,
       success: function(respuesta) {
         if (respuesta.success) {
           cargarTareas();
@@ -104,10 +102,9 @@ $(document).ready(function() {
     let row = table.row($(this).parents('tr'));
     let id = row.data()[0];
     $.ajax({
-      url: 'servidor.php?accion=eliminar',
+      url: 'servidor.php?action=delete',
       method: 'POST',
-      data: JSON.stringify({ id }),
-      contentType: 'application/json',
+      data: { id },
       success: function(respuesta) {
         if (respuesta.success) {
           cargarTareas();
@@ -125,10 +122,9 @@ $(document).ready(function() {
     let nuevaFecha = prompt("Editar fecha de entrega (YYYY-MM-DD):", data[6]);
     if (nuevoTitulo && nuevaFecha) {
       $.ajax({
-        url: 'servidor.php?accion=editar',
+        url: 'servidor.php?action=edit',
         method: 'POST',
-        data: JSON.stringify({ id: data[0], title: nuevoTitulo, date_end: nuevaFecha }),
-        contentType: 'application/json',
+        data: { id: data[0], title: nuevoTitulo, date_end: nuevaFecha },
         success: function(respuesta) {
           if (respuesta.success) {
             cargarTareas();
@@ -142,16 +138,15 @@ $(document).ready(function() {
   // Cambiar estado de tarea
   $('#tasksTable').on('change', '.statusCheckbox', function() {
     let id = $(this).data('id');
-    let completed = $(this).is(':checked');
+    let completed = $(this).is(':checked') ? 1 : 0;
     $.ajax({
-      url: 'servidor.php?accion=estado',
+      url: 'servidor.php?action=status',
       method: 'POST',
-      data: JSON.stringify({ id, completed }),
-      contentType: 'application/json',
+      data: { id, completed },
       success: function(respuesta) {
         if (respuesta.success) {
           cargarTareas();
-          alert(`🔄 Estado de la tarea actualizado.`);
+          alert("🔄 Estado de la tarea actualizado.");
         }
       }
     });
