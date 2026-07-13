@@ -1,15 +1,14 @@
-# Imagen base oficial de PHP con Apache
-FROM php:8.2-apache
+# Imagen base oficial de PHP con Apache (Bullseye)
+FROM php:8.2-apache-bullseye
 
 # Instalar extensiones necesarias para MySQL
 RUN docker-php-ext-install pdo pdo_mysql mysqli \
     && docker-php-ext-enable pdo_mysql mysqli
 
-# 👇 Deshabilitar todos los MPM conflictivos y dejar solo prefork
-RUN a2dismod mpm_event || true
-RUN a2dismod mpm_worker || true
-RUN a2dismod mpm_prefork || true
-RUN a2enmod mpm_prefork
+# 👇 Deshabilitar MPMs conflictivos
+RUN a2dismod mpm_event mpm_worker || true
+
+# Prefork ya viene activo en esta variante, no lo actives de nuevo
 
 # Copiar tu aplicación al contenedor
 COPY . /var/www/html/
