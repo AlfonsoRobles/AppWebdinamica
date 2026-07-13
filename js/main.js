@@ -49,14 +49,15 @@ $(document).ready(function() {
               estadoTexto
             ]).draw().node();
 
+            // ✅ Colorear según estado
             if (task.completed == 1) {
-              $(rowNode).addClass("completed-row");
+              $(rowNode).addClass("completed-row"); // verde
             } else {
               let hoy = new Date();
               let entrega = new Date(task.date_end);
               let diff = (entrega - hoy) / (1000 * 60 * 60 * 24);
               if (diff <= 2 && diff >= 0) {
-                $(rowNode).addClass("warning-row");
+                $(rowNode).addClass("warning-row"); // amarillo intermitente
                 alert(`⚠️ La tarea "${task.title}" vence pronto (fecha límite: ${task.date_end}).`);
               }
             }
@@ -142,7 +143,7 @@ $(document).ready(function() {
       data: { id, completed },
       success: function(respuesta) {
         if (respuesta.success) {
-          cargarTareas();
+          cargarTareas(); // ✅ recarga y aplica la clase .completed-row
           alert("🔄 Estado de la tarea actualizado.");
         }
       }
