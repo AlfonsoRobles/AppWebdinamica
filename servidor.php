@@ -12,7 +12,8 @@ switch ($action) {
         while ($row = $result->fetch_assoc()) {
             $tasks[] = $row;
         }
-        echo json_encode($tasks);
+        // 👇 DataTables necesita la clave "data"
+        echo json_encode(["data" => $tasks]);
         break;
 
     case 'add':
