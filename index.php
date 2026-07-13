@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <!-- Estilos propios -->
   <link rel="stylesheet" href="Css/estilos.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
 </head>
 <body class="bg-light">
   <div class="container mt-4">
