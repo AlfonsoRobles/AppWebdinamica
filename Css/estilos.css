@@ -119,3 +119,22 @@ table#tasksTable.dataTable tbody tr.completed-row:hover {
 table#tasksTable.dataTable tbody tr.warning-row:hover {
   background-color: #ffe8a1 !important; /* amarillo más fuerte */
 }
+
+@media (max-width: 768px) {
+  #tasksTable th, #tasksTable td {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+
+
