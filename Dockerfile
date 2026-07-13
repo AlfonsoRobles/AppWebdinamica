@@ -8,7 +8,7 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli \
 COPY . /var/www/html/
 WORKDIR /var/www/html
 
-# Exponer el puerto dinámico
+# Exponer un puerto genérico (Railway lo sustituye con $PORT)
 EXPOSE 8080
 
 # 👇 Usar la variable $PORT que Railway asigna
