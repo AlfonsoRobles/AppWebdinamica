@@ -12,7 +12,7 @@ switch ($action) {
         while ($row = $result->fetch_assoc()) {
             $tasks[] = $row;
         }
-        // 👇 DataTables necesita la clave "data"
+        // DataTables necesita la clave "data"
         echo json_encode(["data" => $tasks]);
         break;
 
@@ -20,12 +20,12 @@ switch ($action) {
         $title     = $_POST['title'];
         $tipo      = $_POST['tipo'];
         $valor     = $_POST['valor'];
-        $duration  = $_POST['duration'];
+        $duracion  = $_POST['duracion'];   // 👈 corregido
         $dateStart = $_POST['date_start'];
         $dateEnd   = $_POST['date_end'];
 
-        $stmt = $conn->prepare("INSERT INTO tareas (title, tipo, valor, duration, date_start, date_end, completed) VALUES (?, ?, ?, ?, ?, ?, 0)");
-        $stmt->bind_param("ssisss", $title, $tipo, $valor, $duration, $dateStart, $dateEnd);
+        $stmt = $conn->prepare("INSERT INTO tareas (title, tipo, valor, duracion, date_start, date_end, completed) VALUES (?, ?, ?, ?, ?, ?, 0)");
+        $stmt->bind_param("ssisss", $title, $tipo, $valor, $duracion, $dateStart, $dateEnd);
         $stmt->execute();
 
         echo json_encode(["success" => true, "id" => $stmt->insert_id]);
@@ -36,12 +36,12 @@ switch ($action) {
         $title     = $_POST['title'];
         $tipo      = $_POST['tipo'];
         $valor     = $_POST['valor'];
-        $duration  = $_POST['duration'];
+        $duracion  = $_POST['duracion'];   // 👈 corregido
         $dateStart = $_POST['date_start'];
         $dateEnd   = $_POST['date_end'];
 
-        $stmt = $conn->prepare("UPDATE tareas SET title=?, tipo=?, valor=?, duration=?, date_start=?, date_end=? WHERE id=?");
-        $stmt->bind_param("ssisssi", $title, $tipo, $valor, $duration, $dateStart, $dateEnd, $id);
+        $stmt = $conn->prepare("UPDATE tareas SET title=?, tipo=?, valor=?, duracion=?, date_start=?, date_end=? WHERE id=?");
+        $stmt->bind_param("ssisssi", $title, $tipo, $valor, $duracion, $dateStart, $dateEnd, $id);
         $stmt->execute();
 
         echo json_encode(["success" => true]);
